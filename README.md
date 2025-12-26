@@ -284,21 +284,3 @@ For production deployment:
 ## 📝 License
 
 This project is open-source and available for educational purposes.
-
-## 🤝 Contributing
-
-Feel free to fork, modify, and enhance this project! Some ideas:
-- Add expense editing functionality
-- Implement data export (CSV, PDF)
-- Add charts and visualizations
-- Create monthly/yearly reports
-- Multi-currency support
-- Receipt image upload
-
-## 👨‍💻 Developer
-
-Built as a demonstration of full-stack development with AI integration.
-
----
-
-**Happy Expense Tracking! 💰📊**
