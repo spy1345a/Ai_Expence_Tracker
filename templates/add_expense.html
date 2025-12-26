@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expense - AI Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Navigation Header -->
+        <header class="navbar">
+            <div class="navbar-content">
+                <div class="navbar-brand">
+                    <h1>💰 Expense Tracker</h1>
+                </div>
+                <div class="navbar-menu">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="form-container">
+                <div class="form-card">
+                    <h2>Add New Expense</h2>
+                    <p class="form-description">
+                        🤖 Our AI will automatically categorize your expense based on the description!
+                    </p>
+
+                    <form method="POST" action="{{ url_for('add_expense') }}" class="expense-form">
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <input 
+                                type="text" 
+                                id="description" 
+                                name="description" 
+                                required 
+                                placeholder="e.g., Grocery shopping at Walmart"
+                                autocomplete="off"
+                            >
+                            <small>Describe your expense (AI will categorize it automatically)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Amount ($) *</label>
+                            <input 
+                                type="number" 
+                                id="amount" 
+                                name="amount" 
+                                step="0.01" 
+                                min="0.01"
+                                required 
+                                placeholder="0.00"
+                            >
+                            <small>Enter the expense amount</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category (Optional)</label>
+                            <select id="category" name="category">
+                                <option value="">🤖 Let AI decide</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat }}">
+                                    {% if cat == 'Food' %}🍔
+                                    {% elif cat == 'Travel' %}✈️
+                                    {% elif cat == 'Bills' %}📄
+                                    {% elif cat == 'Shopping' %}🛒
+                                    {% elif cat == 'Entertainment' %}🎬
+                                    {% else %}💵{% endif %}
+                                    {{ cat }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <small>Leave blank to let AI categorize automatically</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Add Expense
+                            </button>
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-block">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                    <div class="info-box">
+                        <h4>💡 AI Categorization Tips:</h4>
+                        <ul>
+                            <li><strong>Food:</strong> restaurant, groceries, lunch, coffee, pizza</li>
+                            <li><strong>Travel:</strong> uber, flight, hotel, gas, taxi</li>
+                            <li><strong>Bills:</strong> electricity, rent, insurance, subscription</li>
+                            <li><strong>Shopping:</strong> clothes, electronics, amazon, furniture</li>
+                            <li><strong>Entertainment:</strong> movie, concert, netflix, game</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>AI-Powered Expense Tracker &copy; 2025</p>
+        </footer>
+    </div>
+</body>
+</html>

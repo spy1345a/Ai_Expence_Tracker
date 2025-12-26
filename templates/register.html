@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AI Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-card">
+            <div class="logo">
+                <h1>💰 AI Expense Tracker</h1>
+                <p class="tagline">Smart expense management with AI categorization</p>
+            </div>
+
+            <h2>Create Your Account</h2>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        required 
+                        minlength="3"
+                        placeholder="Choose a username (min 3 characters)"
+                        autocomplete="username"
+                    >
+                    <small>At least 3 characters</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        minlength="6"
+                        placeholder="Choose a password (min 6 characters)"
+                        autocomplete="new-password"
+                    >
+                    <small>At least 6 characters</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirm_password" 
+                        name="confirm_password" 
+                        required 
+                        minlength="6"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    Register
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>AI-Powered Expense Tracker &copy; 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
